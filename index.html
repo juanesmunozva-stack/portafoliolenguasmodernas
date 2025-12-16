@@ -147,32 +147,60 @@ footer{
   font-size:.85rem;
 }
 
-/* MOBILE OPTIMIZATION */
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+}
+
+.modal-content{
+  background:white;
+  max-width:520px;
+  width:90%;
+  padding:1.5rem;
+  border-radius:10px;
+  border:1px solid var(--border);
+  position:relative;
+}
+
+.modal-content h3{
+  margin-top:0;
+  color:var(--green);
+}
+
+.modal-content ul{
+  padding-left:1.2rem;
+}
+
+.modal-content button{
+  width:auto;
+  margin-top:1rem;
+}
+
+.close{
+  position:absolute;
+  top:.6rem;
+  right:.8rem;
+  background:none;
+  border:none;
+  font-size:1.4rem;
+  cursor:pointer;
+}
+
+/* MOBILE */
 @media (max-width:768px){
-
   header h1{font-size:1.05rem}
-
-  nav{
-    flex-direction:column;
-    gap:.3rem;
-  }
-
+  nav{flex-direction:column;gap:.3rem}
   main{padding:1rem}
-
-  .filters{
-    grid-template-columns:1fr;
-  }
-
+  .filters{grid-template-columns:1fr}
   button{font-size:1rem}
-
-  .tag{
-    font-size:.9rem;
-    padding:.5rem 1rem;
-  }
-
-  .index-grid{
-    grid-template-columns:1fr;
-  }
+  .tag{font-size:.9rem;padding:.5rem 1rem}
+  .index-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -192,7 +220,6 @@ footer{
 
 <main>
 
-<!-- BUSCADOR -->
 <section id="buscar" class="section">
   <h2>Búsqueda de recursos</h2>
   <div class="panel">
@@ -232,11 +259,10 @@ footer{
   </div>
 </section>
 
-<!-- KEYWORDS -->
 <section id="keywords" class="section">
   <h2>Keywords frecuentes</h2>
   <div class="panel">
-    <span class="tag" onclick="quickSearch('gramática')">Gramática</span>
+    <span class="tag" onclick="openGrammarModal()">Gramática</span>
     <span class="tag" onclick="quickSearch('vocabulario')">Vocabulario</span>
     <span class="tag" onclick="quickSearch('comprensión')">Comprensión</span>
     <span class="tag" onclick="quickSearch('producción')">Producción</span>
@@ -247,7 +273,6 @@ footer{
   </div>
 </section>
 
-<!-- ÍNDICE -->
 <section id="indice" class="section">
   <h2>Índice de navegación</h2>
   <div class="panel index-grid">
@@ -269,13 +294,11 @@ footer{
   </div>
 </section>
 
-<!-- RESULTADOS -->
 <section id="recursos" class="section">
   <h2>Resultados</h2>
   <div id="results" class="grid"></div>
 </section>
 
-<!-- HISTORIAL -->
 <section id="historial" class="section">
   <h2>Historial de búsqueda</h2>
   <div class="panel" id="history"></div>
@@ -286,6 +309,30 @@ footer{
 <footer>
   Centro de Recursos · Lenguas Modernas
 </footer>
+
+<!-- MODAL GRAMÁTICA -->
+<div id="grammarModal" class="modal">
+  <div class="modal-content">
+    <button class="close" onclick="closeGrammarModal()">×</button>
+
+    <h3>Fundamentos de la Gramática</h3>
+    <p>
+      La gramática es el sistema que organiza y da coherencia a una lengua.
+      En este centro, los recursos gramaticales están diseñados para apoyar
+      el aprendizaje progresivo, contextualizado y funcional.
+    </p>
+
+    <h4>Incluye:</h4>
+    <ul>
+      <li>Explicaciones estructuradas por nivel</li>
+      <li>Ejercicios de aplicación práctica</li>
+      <li>Relación entre forma y uso comunicativo</li>
+      <li>Material de apoyo para docentes y estudiantes</li>
+    </ul>
+
+    <button onclick="closeGrammarModal()">Cerrar</button>
+  </div>
+</div>
 
 <script>
 const resources = [
@@ -340,6 +387,19 @@ function renderHistory(){
   let h = JSON.parse(localStorage.getItem("history")) || [];
   history.innerHTML = h.length ? h.map(i=>"• "+i).join("<br>") : "Sin búsquedas previas.";
 }
+
+function openGrammarModal(){
+  grammarModal.style.display="flex";
+}
+
+function closeGrammarModal(){
+  grammarModal.style.display="none";
+}
+
+grammarModal.addEventListener("click",e=>{
+  if(e.target.id==="grammarModal") closeGrammarModal();
+});
+
 renderHistory();
 </script>
 

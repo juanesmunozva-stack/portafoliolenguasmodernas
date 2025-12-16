@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro de Recursos · Lenguas Modernas</title>
+
+<style>
+:root{
+  --green:#1f7a4d;
+  --red:#c0392b;
+  --bg:#f6f8f7;
+  --white:#ffffff;
+  --border:#dcdcdc;
+  --ink:#1a1a1a;
+}
+
+/* BASE */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+}
+
+/* HEADER */
+header{
+  background:var(--green);
+  color:white;
+  padding:1rem;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+header h1{
+  margin:0;
+  font-size:1.2rem;
+}
+
+nav{
+  margin-top:.5rem;
+  display:flex;
+  gap:.8rem;
+  flex-wrap:wrap;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  font-size:.9rem;
+}
+
+/* MAIN */
+main{
+  max-width:1200px;
+  margin:auto;
+  padding:1.2rem;
+}
+
+.section{margin-bottom:2rem}
+
+.section h2{
+  color:var(--green);
+  margin-bottom:.5rem;
+}
+
+/* UI */
+.panel{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:1rem;
+}
+
+.filters{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:.8rem;
+}
+
+input, select{
+  padding:.55rem;
+  border:1px solid var(--border);
+  border-radius:5px;
+  font-size:.9rem;
+}
+
+button{
+  margin-top:.8rem;
+  background:var(--green);
+  color:white;
+  border:none;
+  padding:.7rem;
+  border-radius:5px;
+  font-size:.95rem;
+  cursor:pointer;
+  width:100%;
+}
+
+/* TAGS */
+.tag{
+  display:inline-block;
+  background:var(--green);
+  color:white;
+  padding:.4rem .8rem;
+  border-radius:20px;
+  font-size:.8rem;
+  margin:.2rem;
+  cursor:pointer;
+}
+
+.tag.red{background:var(--red)}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1rem;
+}
+
+.card{
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:1rem;
+  background:white;
+}
+
+.card h4{
+  margin:.2rem 0 .6rem;
+}
+
+/* INDEX */
+.index-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:1rem;
+  background:white;
+  border-top:1px solid var(--border);
+  font-size:.85rem;
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width:768px){
+
+  header h1{font-size:1.05rem}
+
+  nav{
+    flex-direction:column;
+    gap:.3rem;
+  }
+
+  main{padding:1rem}
+
+  .filters{
+    grid-template-columns:1fr;
+  }
+
+  button{font-size:1rem}
+
+  .tag{
+    font-size:.9rem;
+    padding:.5rem 1rem;
+  }
+
+  .index-grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Centro de Recursos · Lenguas Modernas</h1>
+  <nav>
+    <a href="#buscar">Buscar</a>
+    <a href="#keywords">Keywords</a>
+    <a href="#indice">Índice</a>
+    <a href="#recursos">Resultados</a>
+    <a href="#historial">Historial</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- BUSCADOR -->
+<section id="buscar" class="section">
+  <h2>Búsqueda de recursos</h2>
+  <div class="panel">
+    <div class="filters">
+      <input id="keyword" placeholder="Buscar palabra clave">
+      <select id="language">
+        <option value="">Idioma</option>
+        <option>Inglés</option>
+        <option>Francés</option>
+        <option>Alemán</option>
+      </select>
+      <select id="topic">
+        <option value="">Temática</option>
+        <option>Gramática</option>
+        <option>Vocabulario</option>
+        <option>Comprensión</option>
+        <option>Producción</option>
+        <option>Fonética</option>
+        <option>Cultura</option>
+      </select>
+      <select id="level">
+        <option value="">Nivel</option>
+        <option>Básico</option>
+        <option>Intermedio</option>
+        <option>Avanzado</option>
+      </select>
+      <select id="type">
+        <option value="">Tipo</option>
+        <option>PDF</option>
+        <option>Video</option>
+        <option>Audio</option>
+        <option>Ejercicio</option>
+        <option>Enlace</option>
+      </select>
+    </div>
+    <button onclick="search()">Buscar</button>
+  </div>
+</section>
+
+<!-- KEYWORDS -->
+<section id="keywords" class="section">
+  <h2>Keywords frecuentes</h2>
+  <div class="panel">
+    <span class="tag" onclick="quickSearch('gramática')">Gramática</span>
+    <span class="tag" onclick="quickSearch('vocabulario')">Vocabulario</span>
+    <span class="tag" onclick="quickSearch('comprensión')">Comprensión</span>
+    <span class="tag" onclick="quickSearch('producción')">Producción</span>
+    <span class="tag" onclick="quickSearch('fonética')">Fonética</span>
+    <span class="tag red" onclick="quickSearch('inglés')">Inglés</span>
+    <span class="tag red" onclick="quickSearch('francés')">Francés</span>
+    <span class="tag red" onclick="quickSearch('alemán')">Alemán</span>
+  </div>
+</section>
+
+<!-- ÍNDICE -->
+<section id="indice" class="section">
+  <h2>Índice de navegación</h2>
+  <div class="panel index-grid">
+    <div>
+      <h3>Inglés</h3>
+      <p>Gramática · Vocabulario · Comprensión · Producción · Cultura</p>
+      <p><strong>Niveles:</strong> Todos</p>
+    </div>
+    <div>
+      <h3>Francés</h3>
+      <p>Grammaire · Vocabulaire · Compréhension · Production · Culture</p>
+      <p><strong>Niveles:</strong> Tous</p>
+    </div>
+    <div>
+      <h3>Alemán</h3>
+      <p>Grammatik · Wortschatz · Lesen · Schreiben · Kultur</p>
+      <p><strong>Niveles:</strong> Alle</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTADOS -->
+<section id="recursos" class="section">
+  <h2>Resultados</h2>
+  <div id="results" class="grid"></div>
+</section>
+
+<!-- HISTORIAL -->
+<section id="historial" class="section">
+  <h2>Historial de búsqueda</h2>
+  <div class="panel" id="history"></div>
+</section>
+
+</main>
+
+<footer>
+  Centro de Recursos · Lenguas Modernas
+</footer>
+
+<script>
+const resources = [
+  {title:"Gramática básica", lang:"Inglés", topic:"Gramática", level:"Básico", type:"PDF"},
+  {title:"Comprensión oral", lang:"Francés", topic:"Comprensión", level:"Intermedio", type:"Audio"},
+  {title:"Vocabulario académico", lang:"Alemán", topic:"Vocabulario", level:"Avanzado", type:"PDF"},
+  {title:"Producción escrita", lang:"Inglés", topic:"Producción", level:"Intermedio", type:"Ejercicio"},
+];
+
+function search(){
+  const k = keyword.value.toLowerCase();
+  const l = language.value;
+  const t = topic.value;
+  const lv = level.value;
+  const ty = type.value;
+
+  const query = `${k} | ${l} | ${t} | ${lv} | ${ty}`;
+  saveHistory(query);
+
+  results.innerHTML="";
+  resources.filter(r =>
+    (!k || r.title.toLowerCase().includes(k)) &&
+    (!l || r.lang===l) &&
+    (!t || r.topic===t) &&
+    (!lv || r.level===lv) &&
+    (!ty || r.type===ty)
+  ).forEach(r=>{
+    results.innerHTML+=`
+    <div class="card">
+      <h4>${r.title}</h4>
+      <span class="tag">${r.lang}</span>
+      <span class="tag">${r.topic}</span>
+      <span class="tag">${r.level}</span>
+      <span class="tag">${r.type}</span>
+    </div>`;
+  });
+}
+
+function quickSearch(word){
+  keyword.value = word;
+  search();
+}
+
+function saveHistory(q){
+  let h = JSON.parse(localStorage.getItem("history")) || [];
+  h.unshift(q);
+  localStorage.setItem("history", JSON.stringify(h.slice(0,10)));
+  renderHistory();
+}
+
+function renderHistory(){
+  let h = JSON.parse(localStorage.getItem("history")) || [];
+  history.innerHTML = h.length ? h.map(i=>"• "+i).join("<br>") : "Sin búsquedas previas.";
+}
+renderHistory();
+</script>
+
+</body>
+</html>

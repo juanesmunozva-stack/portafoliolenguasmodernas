@@ -41,115 +41,47 @@ nav{
   flex-wrap:wrap;
 }
 
-nav a{
-  color:white;
-  text-decoration:none;
-  font-size:.9rem;
-}
+nav a{color:white;text-decoration:none;font-size:.9rem}
 
-main{
-  max-width:1200px;
-  margin:auto;
-  padding:1.2rem;
-}
-
-.section{margin-bottom:2rem}
+main{max-width:1200px;margin:auto;padding:1.2rem}
+.section{margin-bottom:2.2rem}
 .section h2{color:var(--green)}
 
-.panel{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:1rem;
-}
+.panel{background:white;border:1px solid var(--border);border-radius:10px;padding:1.2rem}
 
-.filters{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:.8rem;
-}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem}
 
-input,select{
-  padding:.55rem;
-  border:1px solid var(--border);
-  border-radius:5px;
-}
+input,select{padding:.6rem;border:1px solid var(--border);border-radius:6px}
 
-button{
-  margin-top:.8rem;
-  background:var(--green);
-  color:white;
-  border:none;
-  padding:.7rem;
-  border-radius:5px;
-  cursor:pointer;
-  width:100%;
-}
+button{margin-top:.6rem;background:var(--green);color:white;border:none;padding:.75rem;border-radius:6px;cursor:pointer;width:100%}
 
-.tag{
-  display:inline-block;
-  background:var(--green);
-  color:white;
-  padding:.4rem .8rem;
-  border-radius:20px;
-  font-size:.8rem;
-  margin:.2rem;
-  cursor:pointer;
-}
-
+.tag{display:inline-block;background:var(--green);color:white;padding:.4rem .9rem;border-radius:20px;font-size:.8rem;margin:.2rem;cursor:pointer}
 .tag.red{background:var(--red)}
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:1rem;
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
 
-.card{
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:1rem;
-  background:white;
-}
+.card{border:1px solid var(--border);border-radius:10px;padding:1.1rem;background:white}
+.card h4{margin:.2rem 0 .4rem}
 
-.index-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1rem;
-}
+.index-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
 
 /* MODALS */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  z-index:20;
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:30}
+.modal-content{background:white;max-width:850px;margin:5% auto;padding:1.6rem;border-radius:12px;position:relative}
+.close{position:absolute;top:12px;right:16px;cursor:pointer;font-size:1.3rem}
+
+footer{text-align:center;padding:1rem;background:white;border-top:1px solid var(--border);font-size:.85rem}
+
+/* PRINT / PDF */
+@media print{
+  body *{visibility:hidden}
+  .modal-content, .modal-content *{visibility:visible}
+  .modal-content{position:absolute;inset:0;margin:0;border-radius:0}
 }
 
-.modal-content{
-  background:white;
-  max-width:800px;
-  margin:5% auto;
-  padding:1.5rem;
-  border-radius:8px;
-  position:relative;
-}
-
-.close{
-  position:absolute;
-  top:10px;
-  right:15px;
-  cursor:pointer;
-  font-size:1.2rem;
-}
-
-footer{
-  text-align:center;
-  padding:1rem;
-  background:white;
-  border-top:1px solid var(--border);
-  font-size:.85rem;
+@media(max-width:768px){
+  nav{flex-direction:column}
+  header h1{font-size:1.05rem}
 }
 </style>
 </head>
@@ -173,59 +105,58 @@ footer{
 <section id="buscar" class="section">
 <h2>Búsqueda de recursos</h2>
 <div class="panel">
-  <div class="filters">
-    <input id="keyword" placeholder="Buscar palabra clave">
-    <select id="language">
-      <option value="">Idioma</option>
-      <option>Inglés</option>
-      <option>Francés</option>
-      <option>Alemán</option>
-    </select>
-    <select id="topic">
-      <option value="">Temática</option>
-      <option>Gramática</option>
-      <option>Vocabulario</option>
-      <option>Comprensión</option>
-      <option>Producción</option>
-    </select>
-    <select id="level">
-      <option value="">Nivel</option>
-      <option>Básico</option>
-      <option>Intermedio</option>
-      <option>Avanzado</option>
-    </select>
-  </div>
-  <button onclick="search()">Buscar</button>
+<div class="filters">
+<input id="keyword" placeholder="Buscar palabra clave">
+<select id="language"><option value="">Idioma</option><option>Inglés</option><option>Francés</option><option>Alemán</option></select>
+<select id="topic"><option value="">Temática</option><option>Gramática</option><option>Vocabulario</option><option>Comprensión</option><option>Producción</option></select>
+<select id="level"><option value="">Nivel</option><option>Básico</option><option>Intermedio</option><option>Avanzado</option></select>
+</div>
+<button onclick="search()">Buscar</button>
 </div>
 </section>
 
 <section id="keywords" class="section">
 <h2>Keywords frecuentes</h2>
 <div class="panel">
-  <span class="tag" onclick="openKeyword('Gramática')">Gramática</span>
-  <span class="tag" onclick="openKeyword('Vocabulario')">Vocabulario</span>
-  <span class="tag" onclick="openKeyword('Comprensión')">Comprensión</span>
-  <span class="tag" onclick="openKeyword('Producción')">Producción</span>
-  <span class="tag red" onclick="openKeyword('Inglés')">Inglés</span>
+<span class="tag" onclick="openKeyword('Gramática')">Gramática</span>
+<span class="tag" onclick="openKeyword('Vocabulario')">Vocabulario</span>
+<span class="tag" onclick="openKeyword('Comprensión')">Comprensión</span>
+<span class="tag" onclick="openKeyword('Producción')">Producción</span>
+<span class="tag red" onclick="openKeyword('Inglés')">Inglés</span>
 </div>
 </section>
 
 <section id="indice" class="section">
 <h2>Índice de navegación</h2>
 <div class="panel index-grid">
-  <div><h3>Inglés</h3><p>Gramática · Vocabulario · Producción</p></div>
-  <div><h3>Francés</h3><p>Comprensión · Lectura</p></div>
+<div><h3>Inglés</h3><p>Gramática · Vocabulario · Producción</p></div>
+<div><h3>Francés</h3><p>Comprensión · Lectura</p></div>
+<div><h3>Alemán</h3><p>Gramática · Escritura</p></div>
 </div>
 </section>
 
 <section id="biblioteca" class="section">
 <h2>Biblioteca académica</h2>
-<div class="panel">
-  <p><strong>Repositorio Académico de Lenguas Modernas</strong></p>
-  <button onclick="openModal('repoModal');saveHistory('Repositorio → Acceso')">
-    Acceder al repositorio completo
-  </button>
+
+<div class="panel filters">
+<select id="libLang"><option value="">Idioma</option><option>Inglés</option><option>Francés</option><option>Alemán</option></select>
+<select id="libLevel"><option value="">Nivel</option><option>Básico</option><option>Intermedio</option><option>Avanzado</option></select>
+<select id="libSkill"><option value="">Habilidad</option><option>Escucha</option><option>Lectura</option><option>Escritura</option><option>Habla</option><option>Gramática</option></select>
+<button onclick="renderLibrary()">Filtrar biblioteca</button>
 </div>
+
+<div class="panel">
+<h3>Repositorios por habilidad</h3>
+<div class="grid">
+<div class="card"><h4>👂 Escucha</h4><button onclick="openRepo('Escucha')">Abrir</button></div>
+<div class="card"><h4>📖 Lectura</h4><button onclick="openRepo('Lectura')">Abrir</button></div>
+<div class="card"><h4>✍️ Escritura</h4><button onclick="openRepo('Escritura')">Abrir</button></div>
+<div class="card"><h4>🗣️ Habla</h4><button onclick="openRepo('Habla')">Abrir</button></div>
+<div class="card"><h4>📐 Gramática</h4><button onclick="openRepo('Gramática')">Abrir</button></div>
+</div>
+</div>
+
+<div id="libraryGrid" class="grid"></div>
 </section>
 
 <section id="recursos" class="section">
@@ -246,77 +177,52 @@ footer{
 <div class="modal-content">
 <span class="close" onclick="closeModal('keywordModal')">✖</span>
 <div id="keywordContent"></div>
+<button onclick="window.print()">Descargar PDF</button>
 </div>
 </div>
 
 <div id="repoModal" class="modal">
 <div class="modal-content">
 <span class="close" onclick="closeModal('repoModal')">✖</span>
-<h3>Repositorio Académico de Lenguas</h3>
-<p>Guías completas de escucha, lectura, escritura, habla y gramática.</p>
+<h3 id="repoTitle"></h3>
+<p id="repoText"></p>
+<button onclick="window.print()">Descargar PDF</button>
 </div>
 </div>
 
 <script>
-const resources=[
-  {title:"Gramática básica",lang:"Inglés",topic:"Gramática",level:"Básico"},
-  {title:"Producción escrita",lang:"Inglés",topic:"Producción",level:"Intermedio"}
+const resources=[{title:"Gramática básica",lang:"Inglés",topic:"Gramática",level:"Básico"},{title:"Producción escrita",lang:"Inglés",topic:"Producción",level:"Intermedio"}];
+
+const library=[
+{title:"Guía integral de gramática inglesa",lang:"Inglés",level:"Intermedio",skill:"Gramática",desc:"Documento académico extenso sobre estructuras, tiempos verbales y uso contextual."},
+{title:"Comprensión auditiva multilingüe",lang:"General",level:"Básico",skill:"Escucha",desc:"Guía detallada para entrenar la escucha activa en distintos idiomas."},
+{title:"Producción escrita académica",lang:"Francés",level:"Avanzado",skill:"Escritura",desc:"Manual completo para redacción formal y académica."}
 ];
 
 function search(){
-  const k=keyword.value.toLowerCase();
-  const l=language.value;
-  const t=topic.value;
-  const lv=level.value;
-  const resultsBox=document.getElementById("results");
-  resultsBox.innerHTML="";
-  resources.filter(r=>
-    (!k||r.title.toLowerCase().includes(k)) &&
-    (!l||r.lang===l) &&
-    (!t||r.topic===t) &&
-    (!lv||r.level===lv)
-  ).forEach(r=>{
-    resultsBox.innerHTML+=`<div class="card"><h4>${r.title}</h4></div>`;
-  });
-  saveHistory(`Búsqueda → ${k||"*"} | ${l||"*"} | ${t||"*"} | ${lv||"*"}`);
+results.innerHTML="";
+resources.forEach(r=>{results.innerHTML+=`<div class='card'><h4>${r.title}</h4></div>`});
+saveHistory("Búsqueda ejecutada");
 }
 
-function openKeyword(k){
-  document.getElementById("keywordContent").innerHTML=`
-    <h3>${k}</h3>
-    <p>Contenido pedagógico sobre ${k}.</p>
-    <button onclick="keyword.value='${k}';search()">Ver recursos relacionados</button>
-  `;
-  saveHistory(`Keyword → ${k}`);
-  openModal('keywordModal');
-}
+function openKeyword(k){keywordContent.innerHTML=`<h3>${k}</h3><p>Contenido pedagógico extenso sobre ${k}.</p>`;openModal('keywordModal');saveHistory(`Keyword → ${k}`)}
 
-function openModal(id){
-  document.getElementById(id).style.display="block";
-}
+function renderLibrary(){
+libraryGrid.innerHTML="";
+library.forEach(b=>{libraryGrid.innerHTML+=`<div class='card'><h4>${b.title}</h4><p>${b.skill} · ${b.lang} · ${b.level}</p><p>${b.desc}</p><button onclick=\"openLibrary('${b.title}','${b.desc}')\">Abrir guía</button></div>`});saveHistory("Biblioteca → Filtrado")}
 
-function closeModal(id){
-  document.getElementById(id).style.display="none";
-}
+function openLibrary(t,d){repoTitle.innerText=t;repoText.innerText=d;openModal('repoModal');saveHistory(`Biblioteca → ${t}`)}
+function openRepo(s){repoTitle.innerText="Repositorio de "+s;repoText.innerText="Material académico completo sobre "+s;openModal('repoModal');saveHistory(`Repositorio → ${s}`)}
 
-function saveHistory(text){
-  const key="history-log";
-  let h=JSON.parse(localStorage.getItem(key))||[];
-  h.unshift(text);
-  localStorage.setItem(key,JSON.stringify(h.slice(0,15)));
-  renderHistory();
-}
+function openModal(id){document.getElementById(id).style.display="block"}
+function closeModal(id){document.getElementById(id).style.display="none"}
 
-function renderHistory(){
-  const historyBox=document.getElementById("history");
-  let h=JSON.parse(localStorage.getItem("history-log"))||[];
-  historyBox.innerHTML=h.length
-    ? h.map(i=>"• "+i).join("<br>")
-    : "Sin actividad registrada.";
-}
+function saveHistory(t){let h=JSON.parse(localStorage.getItem("history-log"))||[];h.unshift(t);localStorage.setItem("history-log",JSON.stringify(h.slice(0,30)));renderHistory()}
+function renderHistory(){const box=document.getElementById("history");let h=JSON.parse(localStorage.getItem("history-log"))||[];box.innerHTML=h.length?h.map(i=>"• "+i).join("<br>"):"Sin actividad registrada."}
 
-renderHistory();
+renderLibrary();renderHistory();
 </script>
 
 </body>
 </html>
+
